@@ -45,3 +45,13 @@ func NewAppendWriter(rw *os.File) (*AppendWriter, error) {
 		return &AppendWriter{*NewWriter(rw)}, nil
 	}
 }
+
+func (w *AppendWriter) Remove(name string) {
+	var dir []*header
+	for _, f := range w.dir {
+		if f.Name != name {
+			dir = append(dir, f)
+		}
+	}
+	w.dir = dir
+}
